@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad AI Bot</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #111827;
+    color: white;
+}
+
+.header {
+    background: #2563eb;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.chat {
+    padding: 20px;
+}
+
+.question-box {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+#message {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid #2563eb;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+button {
+    padding: 12px 15px;
+    margin: 5px 2px;
+    border: none;
+    border-radius: 10px;
+    background: #2563eb;
+    color: white;
+    font-weight: bold;
+}
+
+.clear {
+    background: #dc2626;
+}
+
+.voice {
+    background: #059669;
+}
+
+#answer {
+    margin-top: 20px;
+    padding: 15px;
+    background: #1f2937;
+    border-radius: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+🤖 Muhammad AI Bot
+</div>
+
+<div class="chat">
+
+<p>🧠 <b>Barka da zuwa Muhammad AI Bot!</b></p>
+
+<div class="question-box">
+
+<input id="message"
+type="text"
+placeholder="Tambayi AI Bot..."
+onkeydown="if(event.key==='Enter') sendMessage()">
+
+<button onclick="sendMessage()">Send 🚀</button>
+
+</div>
+
+<button class="voice" onclick="speakAnswer()">🔊 Voice</button>
+
+<button class="clear" onclick="clearChat()">🗑️ Clear</button>
+
+<div id="answer">
+Bot zai amsa tambayarka a nan... 🤖
+</div>
+
+</div>
+
+<script>
+
+let lastAnswer = "";
+
+let userName = localStorage.getItem("userName") || "";
+let userAge = localStorage.getItem("userAge") || "";
+
+
+function getAnswer(message) {
+
+message = message.toLowerCase().trim();
+
+
+// SUNA
+if (message.startsWith("sunana ")) {
+
+let name = message.substring(7).trim();
+
+userName = name;
+
+localStorage.setItem("userName", userName);
+
+return "Na tuna sunanka: " + name + " 😊🧠";
+
+}
+
+
+// SHEKARA
+if (message.startsWith("shekaruna ")) {
+
+let age = message.substring(10).trim();
+
+userAge = age;
+
+localStorage.setItem("userAge", userAge);
+
+return "Na tuna shekarunka: " + age + " 🧠🎉";
+
+}
+
+
+// WA YE SUNANA?
+if (message.includes("waye sunana") ||
+    message.includes("menene sunana")) {
+
+if (userName !== "") {
+
+return "Sunanka " + userName + " ne. 😊";
+
+}
+
+return "Har yanzu ban san sunanka ba. Ka ce: Sunana Muhammad.";
+
+}
+
+
+// SHEKARATA
+if (message.includes("shekaruna nawa") ||
+    message.includes("shekara nawa nake")) {
+
+if (userAge !== "") {
+
+return "Shekarunka " + userAge + " ne. 🎂";
+
+}
+
+return "Har yanzu ban san shekarunka ba. Ka ce: Shekaruna 17.";
+
+}
+
+
+// AI
+if (message.includes("menene ai")) {
+
+return "AI na nufin Artificial Intelligence. Fasaha ce da ke bai wa kwamfuta damar yin wasu ayyuka masu kama da tunanin dan Adam. 🤖";
+
+}
+
+
+// PYTHON
+if (message.includes("menene python")) {
+
+return "Python harshen programming ne da ake amfani da shi wajen gina software, AI da websites. 🐍";
+
+}
+
+
+// COMPUTER
+if (message.includes("menene computer")) {
+
+return "Computer na'ura ce da ke karbar bayanai, sarrafa su, sannan ta fitar da sakamako. 💻";
+
+}
+
+
+// PROGRAMMING
+if (message.includes("menene programming")) {
+
+return "Programming hanya ce ta rubuta umarni da kwamfuta za ta fahimta domin ta yi wani aiki. 👨‍💻";
+
+}
+
+
+// SALAM
+if (message.includes("sannu") ||
+    message.includes("hello") ||
+    message.includes("hi")) {
+
+return "Wa alaikumus salam! 😊 Barka da zuwa Muhammad AI Bot.";
+
+}
+
+
+// WANE NE BOT?
+if (message.includes("waye kai") ||
+    message.includes("menene sunanka")) {
+
+return "Ni Muhammad AI Bot ne. 🤖";
+
+}
+
+
+return "Ban fahimci tambayar ba tukuna. Ka sake bayyana min.";
+
+}
+
+
+function sendMessage() {
+
+let message = document.getElementById("message").value;
+
+if (message.trim() === "") return;
+
+lastAnswer = getAnswer(message);
+
+document.getElementById("answer").innerText =
+"Bot: " + lastAnswer;
+
+}
+
+
+function speakAnswer() {
+
+if (lastAnswer === "") return;
+
+let speech = new SpeechSynthesisUtterance(lastAnswer);
+
+speech.lang = "en-US";
+
+window.speechSynthesis.speak(speech);
+
+}
+
+
+function clearChat() {
+
+document.getElementById("message").value = "";
+
+document.getElementById("answer").innerText =
+"Bot zai amsa tambayarka a nan... 🤖";
+
+lastAnswer = "";
+
+}
+
+</script>
+
+</body>
+</html>
